@@ -36,26 +36,26 @@ export const App = () => {
   //   }, [dispatch]);
 
   return (
-    <Router>
-      <div>
-        <Link to="/">
-          <h1>Boilermaker - Boilermaker Management System ({users.length})</h1>
-          <ul>
-            {users.map((user) => {
-              return <li key={user.id}>{user.username}</li>;
-            })}
-          </ul>
-        </Link>
-        <Nav />
-        <Routes>
-          {/* <Route path="/students" element={<Students />} />
+    // <Router>
+    <div>
+      <Link to="/">
+        <h1>Boilermaker - Boilermaker Management System ({users.length})</h1>
+        <ul>
+          {users.map((user) => {
+            return <li key={user.id}>{user.username}</li>;
+          })}
+        </ul>
+      </Link>
+      <Nav />
+      <Routes>
+        {/* <Route path="/students" element={<Students />} />
           <Route path="/campuses" element={<Campuses />} />
           <Route path="/students/:id" element={<Student />} />
           <Route path="/campuses/:id" element={<Campus />} />
           <Route path="/campuses/:id/update" element={<UpdateCampus />} />
           <Route path="/students/:id/update" element={<UpdateStudent />} /> */}
-        </Routes>
-      </div>
-    </Router>
+      </Routes>
+    </div>
+    // </Router>
   );
 };
