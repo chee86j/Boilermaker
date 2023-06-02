@@ -21,6 +21,7 @@ const syncAndSeed = async () => {
   //   // Set up users
   const adminPassword = await bcrypt.hash("admin", 5);
   const guestPassword = await bcrypt.hash("guest", 5);
+
   const [admin, guest] = await Promise.all([
     User.create({ username: "admin", password: adminPassword }),
     User.create({ username: "guest", password: guestPassword }),

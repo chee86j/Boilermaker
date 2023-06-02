@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 // import { fetchStudents } from "../store/students";
 // import { fetchCampuses } from "../store/campuses";
 
@@ -18,7 +18,17 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 // import UpdateStudent from "./UpdateStudent";
 
 export const App = () => {
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await fetch("/api/users");
+      const json = await response.json();
+      setUsers(json);
+    };
+    fetchUsers();
+  }, []);
 
   //   useEffect(() => {
   //     dispatch(fetchStudents());
@@ -29,7 +39,12 @@ export const App = () => {
     <Router>
       <div>
         <Link to="/">
-          <h1>Boilermaker - Boilermaker Management System</h1>
+          <h1>Boilermaker - Boilermaker Management System ({users.length})</h1>
+          <ul>
+            {users.map((user) => {
+              return <li key={user.id}>{user.username}</li>;
+            })}
+          </ul>
         </Link>
         <Nav />
         <Routes>

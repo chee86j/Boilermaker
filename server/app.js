@@ -31,6 +31,22 @@ app.get("/*", (req, res, next) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
+// route to get all users
+app.get("/api/users", async (req, res, next) => {
+  try {
+    const users = await User.findAll();
+    attributes: {
+      // to exclude password from the returned data
+      exclude: ["password"];
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+// static middleware to server static files from public folder
+app.use("/public", express.static(path.join(__dirname, "../public")));
+
 // page not found error handling middleware
 app.use((req, res, next) => {
   const error = Error("Page Not Found");
@@ -38,7 +54,7 @@ app.use((req, res, next) => {
   next(error);
 });
 
-// error handling middleware for all other erros
+// error handling middleware for all other errors
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.status || 500).send(err.message || "Internal Server Error");
